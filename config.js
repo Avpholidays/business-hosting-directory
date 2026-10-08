@@ -1,8 +1,4 @@
-/*
-  Paste your Supabase project URL and publishable/anon key below.
-  These are intended for browser use. NEVER put a service_role key here.
-*/
 window.BH_CONFIG = {
-  SUPABASE_URL: "https://YOUR_PROJECT_REF.supabase.co",
-  SUPABASE_ANON_KEY: "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY"
+  SUPABASE_URL: "https://zopkigzxyioccqramwg.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_iSWM1uNoO4qHYc6I0Ihe4A_oZGs1Xb_"
 };
