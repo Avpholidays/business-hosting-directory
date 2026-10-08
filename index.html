@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Find and connect with local businesses across the United States.">
+  <title>Business Hosting — Find Local Businesses</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Business Hosting home"><span class="brand-mark">BH</span><span>Business <b>Hosting</b></span></a>
+    <nav>
+      <a href="#categories">Categories</a>
+      <a href="#listings">Explore</a>
+      <button class="button button-outline" id="open-auth">Log in / Join</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">YOUR LOCAL BUSINESS DIRECTORY</p>
+        <h1>Find the right business.<br><span>Right around the corner.</span></h1>
+        <p class="hero-subtitle">Discover trusted local services, shops, and professionals across the United States.</p>
+        <form id="search-form" class="search-panel">
+          <label class="search-field"><span>Business or service</span><input id="search-term" placeholder="Plumber, dentist, restaurant..." autocomplete="off"></label>
+          <label class="search-field"><span>City, state, or ZIP</span><input id="search-location" placeholder="Austin, TX or 78701" autocomplete="off"></label>
+          <button class="button button-primary" type="submit">Search businesses <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="hero-note"><span class="live-dot"></span> Search business listings across the USA</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="art-card card-main"><div class="art-pin">⌖</div><div class="art-lines"><i></i><i></i><i></i></div><span class="art-tag">Local businesses</span></div>
+        <div class="art-card card-small"><span class="art-star">★</span><div><b>Find your next favorite</b><small>Discover something nearby</small></div></div>
+        <div class="art-bubble bubble-one">✦</div><div class="art-bubble bubble-two">+</div>
+      </div>
+    </section>
+
+    <section class="section categories-section" id="categories">
+      <div class="section-heading"><div><p class="eyebrow">BROWSE BY NEED</p><h2>Explore popular categories</h2></div><span class="section-aside">Find the help you need</span></div>
+      <div class="category-grid" id="category-grid">
+        <button class="category-card" data-category="Home Services"><span class="category-icon blue">⌂</span><b>Home Services</b><small>Repairs & maintenance</small></button>
+        <button class="category-card" data-category="Restaurants"><span class="category-icon orange">♨</span><b>Restaurants</b><small>Food & dining</small></button>
+        <button class="category-card" data-category="Health & Medical"><span class="category-icon green">✚</span><b>Health & Medical</b><small>Care & wellness</small></button>
+        <button class="category-card" data-category="Automotive"><span class="category-icon purple">↗</span><b>Automotive</b><small>Auto care & repair</small></button>
+        <button class="category-card" data-category="Legal & Financial"><span class="category-icon yellow">$</span><b>Legal & Financial</b><small>Expert services</small></button>
+        <button class="category-card" data-category="Beauty & Personal Care"><span class="category-icon pink">✿</span><b>Beauty & Personal Care</b><small>Look & feel your best</small></button>
+      </div>
+    </section>
+
+    <section class="section listings-section" id="listings">
+      <div class="section-heading"><div><p class="eyebrow">THE DIRECTORY</p><h2 id="results-title">Discover local businesses</h2><p class="muted" id="results-description">Search the directory or explore recently published listings.</p></div><button class="button button-soft" id="clear-search">Clear filters</button></div>
+      <div class="status-line" id="results-status" role="status">Connect your Supabase project to load live listings.</div>
+      <div class="business-grid" id="business-grid"></div>
+      <div class="empty-state" id="empty-state"><div class="empty-icon">⌕</div><h3>No listings to show yet</h3><p>Once businesses are added and published, they’ll appear here.</p></div>
+    </section>
+
+    <section class="owner-cta">
+      <div><p class="eyebrow">GROW YOUR BUSINESS</p><h2>Put your business on the map.</h2><p>Create an account to submit your business for review and help local customers find you.</p></div>
+      <button class="button button-light" id="owner-join">List your business <span>→</span></button>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="./"><span class="brand-mark">BH</span><span>Business <b>Hosting</b></span></a><p>Helping people discover local businesses across America.</p><small>© <span id="year"></span> Business Hosting. Business information should be verified before use.</small></footer>
+
+  <dialog id="auth-dialog" class="modal">
+    <div class="modal-head"><div><p class="eyebrow">WELCOME</p><h2 id="auth-title">Log in to Business Hosting</h2></div><button class="icon-button" id="close-auth" aria-label="Close">×</button></div>
+    <div class="auth-tabs"><button class="auth-tab active" data-mode="login">Log in</button><button class="auth-tab" data-mode="signup">Create account</button></div>
+    <form id="auth-form" class="stack-form">
+      <label>Email address<input type="email" id="auth-email" required autocomplete="email" placeholder="you@example.com"></label>
+      <label>Password<input type="password" id="auth-password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters"></label>
+      <label id="auth-name-wrap" class="hidden">Your name<input type="text" id="auth-name" autocomplete="name" placeholder="Full name"></label>
+      <button class="button button-primary full-width" id="auth-submit" type="submit">Log in</button>
+      <p class="form-message" id="auth-message" role="status"></p>
+    </form>
+    <p class="fine-print">Never share your password. Admin access is granted separately by the site owner.</p>
+  </dialog>
+
+  <dialog id="account-dialog" class="modal modal-wide">
+    <div class="modal-head"><div><p class="eyebrow">YOUR ACCOUNT</p><h2 id="account-title">Business dashboard</h2><p class="muted" id="account-subtitle"></p></div><button class="icon-button" id="close-account" aria-label="Close">×</button></div>
+    <div id="account-content"></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

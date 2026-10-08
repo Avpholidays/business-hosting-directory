@@ -1,0 +1,5 @@
+# Keep local editor and OS files out of the repository
+.DS_Store
+Thumbs.db
+.env
+.env.*
